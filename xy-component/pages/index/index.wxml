@@ -1,0 +1,11 @@
+<!--index.wxml-->
+<view>
+  <ylh-calendar
+    monthCount="6"
+    isDisable="{{true}}"
+    disNumDay="60"
+    isCurrentMonth="{{true}}"
+    isDoubleSelection="{{true}}"
+  >
+  </ylh-calendar>
+</view>

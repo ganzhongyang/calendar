@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "ylh-calendar": "/components/calendar/calendar"
+  }
+}

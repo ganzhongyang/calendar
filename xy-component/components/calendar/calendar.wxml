@@ -1,0 +1,33 @@
+<!--components/calendar/calendar.wxml-->
+<view class="calendar-wrap">
+  <view class="header-weeks">
+    <view wx:for="{{weeks}}" wx:key>
+      {{item}}
+    </view>
+  </view>
+  <block wx:for="{{dateList}}" wx:key>
+    <view class="body-date-content">
+      <view class="month-title">{{item.year}}年{{item.month}}月或{{item.monthTitle}}</view>
+      <view class="day-content">
+        <view class="day_item" wx:for="{{item.startWeek}}" wx:key></view>
+        <block wx:for="{{item.everyDay}}" wx:key wx:for-item="everyDay">
+          <view 
+          wx:if="{{everyDay.disTime}}"
+          class="day_item disable"
+          >
+            {{everyDay.day}}
+          </view>
+          <view 
+          wx:else
+          class="day_item {{everyDay.date===selectedDate.date? 'active' :''}} {{everyDay.date===endTime.date? 'active' :''}} {{everyDay.diffDate ? 'diffDateBg':''}} "
+          bindtap="selectedDay"
+          data-item="{{everyDay}}"
+          >
+            {{everyDay.day}}
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+
+</view>

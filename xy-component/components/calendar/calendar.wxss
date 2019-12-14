@@ -1,0 +1,57 @@
+/* components/calendar/calendar.wxss */
+view {
+  box-sizing: border-box;
+}
+.calendar-wrap{
+  padding-top: 80rpx;
+}
+.header-weeks{
+  width: 100%;
+  background: #fff;
+  padding: 20rpx 0;
+  height: 80rpx;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 32rpx;
+  color: hotpink;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-bottom: 1rpx solid #ccc;
+}
+.body-date-content{
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.month-title{
+  font-size: 36rpx;
+  font-weight:bold;
+  color: #333; 
+  text-align: left;
+  padding: 30rpx;
+}
+.day-content{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.day-content .day_item{
+  width: 14.28%;
+  text-align: center;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+/* 禁用日期样式 */
+.disable{
+  color: #ccc;
+}
+.active{
+  color: #fff;
+  background: hotpink;
+}
+.diffDateBg{
+  background: rgba(233, 150, 192, 0.699);
+}
