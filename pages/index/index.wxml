@@ -3,9 +3,10 @@
   <ylh-calendar
     monthCount="6"
     isDisable="{{true}}"
-    disNumDay="60"
+    disNumDay="100"
     isCurrentMonth="{{true}}"
-    isDoubleSelection="{{true}}"
+    isDoubleSelection="{{false}}"
+    bind:change="onChange"
   >
   </ylh-calendar>
 </view>

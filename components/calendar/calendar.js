@@ -149,46 +149,47 @@ Component({
       }else{
         this.setData({ selectedDate })
         //todo 单选模式完毕在这执行子传父事件,调起父组件的事件
-        console.log("单选模式完毕,准备调起父组件事件", selectedDate)
+        this.triggerEvent("change", { selectedDate })
       }
     },
     //双选模式
     doubleSelection(selectedDate){
       let clickCount = ++this.data.clickCount
-      switch (clickCount) {
-        case 1:
-          this.setData({ startTime: selectedDate, selectedDate})
-          break;
-        case 2:
-          this.setData({ endTime: selectedDate })
-          // 开始的时间 - 结束的时间  = 结果为正数,代表第一次点选的开始时间大于结束时间,所以交换位置 
-          let startTime = this.data.startTime
-          let endTime = this.data.endTime
-          let diffTime = this.diffTime(startTime.date, endTime.date)
-          if (diffTime > 0){ //计算时间,交换开始结束时间
-            let temDate = startTime
-            startTime = endTime
-            endTime = temDate
-          }
-          //循环遍历日历数据,如果在开始和结束时间之间加上选中样式
-          let dateList = this.data.dateList
-          //拿到开始时间到结束时间的绝对值,也就是 开始时间距离结束时间有abs天
-          let abs = Math.abs(this.diffTime(startTime.date, endTime.date))
-          //循环遍历数组, item.date - startTime  =  0:开始时间 && 小于 abs
-          dateList.map((item)=>{
-            item.everyDay.map((everyDayItem,index)=>{
-              const diffDate = this.diffTime(everyDayItem.date, startTime.date)
-              if (diffDate > 0 && diffDate < abs ){
-                everyDayItem.diffDate = true
-              }
-            })
+      if (clickCount%2===0){
+        this.setData({ endTime: selectedDate })
+        // 开始的时间 - 结束的时间  = 结果为正数,代表第一次点选的开始时间大于结束时间,所以交换位置 
+        let startTime = this.data.startTime
+        let endTime = this.data.endTime
+        let diffTime = this.diffTime(startTime.date, endTime.date)
+        if (diffTime > 0) { //计算时间,交换开始结束时间
+          let temDate = startTime
+          startTime = endTime
+          endTime = temDate
+          console.log("交换时间", startTime, endTime)
+        }
+        //循环遍历日历数据,如果在开始和结束时间之间加上选中样式
+        let dateList = this.data.dateList
+        //拿到开始时间到结束时间的绝对值,也就是 开始时间距离结束时间有abs天
+        let abs = Math.abs(this.diffTime(startTime.date, endTime.date))
+        //循环遍历数组, item.date - startTime  =  0:开始时间 && 小于 abs
+        dateList.map((item) => {
+          item.everyDay.map((everyDayItem, index) => {
+            const diffDate = this.diffTime(everyDayItem.date, startTime.date)
+            if (diffDate > 0 && diffDate < abs) {
+              everyDayItem.diffDate = true
+            }
           })
-          console.log( "双选模式结束,调用父组件传值,当前的开始与结束时间", this.data.startTime, this.data.endTime)
-          this.setData({ dateList })
-          break;
-        default:
-          return;
+        })
+        this.setData({ dateList, startTime, endTime })
+        this.triggerEvent('change', { startTime, endTime})
+      }else{
+        let dateList = this.data.dateList
+        dateList.map(item => {
+          item.everyDay.map(everyDayItem=>everyDayItem.diffDate=false)
+        })
+        this.setData({ startTime: selectedDate, selectedDate, dateList ,endTime:{} })
       }
+    
     },
     //设置默认选择为今天的时间
     setSelectDay(){
